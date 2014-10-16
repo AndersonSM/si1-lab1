@@ -1,1 +1,1 @@
-Este repositório contém meu código referente ao Lab1 de SI1 @ UFCG.
+Este repositório contém meu código referente ao Lab1 de SI1 @ UFCG. Essa é a versão 1.
