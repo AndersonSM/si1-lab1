@@ -1,0 +1,67 @@
+@charset "utf-8";
+body {
+    font-family: sans-serif;
+    background: lightblue;
+    max-width: 1200px;
+    margin-left: 25px;
+}
+
+h1 {
+    text-align: center;
+    color: darkblue;
+    font-weight: bold;
+}
+
+h2 {
+    color: dodgerblue;
+}
+
+h4 {
+    font-size: 14pt;
+    color: dodgerblue;
+}
+
+p {
+    text-align: justify;
+}
+span {
+    font-size: 14px;
+}
+
+a {
+   color: darkblue;
+   text-decoration: none;
+}
+
+form br{
+    margin-bottom: 5px;
+}
+
+.div-center {
+    text-align: center;
+}
+
+.auto-width {
+    display: inline-block;
+}
+
+.dark {
+color: darkblue;
+}
+
+.destaque{
+text-decoration: none;
+}
+
+.destaque:hover {
+color: white;
+font-style: italic;
+}
+
+a:hover {
+color: dodgerblue;
+}
+
+.div-center {
+    text-align: center;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head lang="pt">
+    <meta charset="UTF-8">
+    <!-- <link type="text/css" rel="stylesheet" href="stylesheet.css"/> -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <title>Sistemas de Informação 1 - Cadastro</title>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h2>Cadastro em Sistemas de Informação 1</h2>
+        </div>
+        <div class="form-group">
+            <form role="form" action="final.html"><fieldset><legend><h3 class="text-primary">Informações pessoais</h3></legend>
+                <div class="row col-sm-12">
+                    <div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-warning-sign"></span> Todos os campos são obrigatórios.</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Nome:</label><input type="text" name="nome" class="form-control"><br>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Matrícula:</label><input type="text" name="matricula" class="form-control"><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Período atual:</label><input type="text" name="periodo" class="form-control"><br>
+                    </div>
+                    <div class="col-sm-10">
+                        <label>Email acadêmico:</label><input type="email" name="email" class="form-control"><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Já perdeu a disciplina?</label>
+                        <div class="radio">
+                            <label><input type="radio" name="perdeu" value="yes"> Sim</label><br>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="perdeu" value="no" checked> Não</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Observações:</label><br>
+                        <textarea name="obs" rows="10" cols="100"></textarea><br><br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="submit" value="Cadastre-se" class="btn btn-lg btn-primary"><br>
+                    </div>
+                </div>
+            </fieldset></form>
+        </div>
+        <br><a href="index.html">Voltar à página inicial</a>
+    </div>
+</body>
+</html>
