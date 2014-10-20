@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" ng-app="aprendizagem">
+<head lang="pt">
+    <meta charset="UTF-8">
+    <!-- <link type="text/css" rel="stylesheet" href="stylesheet.css"/> -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.js"></script>
+    <script src="aprendizagem.js"></script>
+    <title>Sistemas de Informação 1 - Obrigado</title>
+
+    <!--<script>
+
+
+        $(document).ready(function(){
+            $("#add").click(function(){
+                if($('input[name=coluna]:checked', '#temaForm').val() === 'aprendido') {
+                    $scope.aprendidos.push($('#temaTxt').val());
+                } else {
+                    $scope.aprender.push($('#temaTxt').val());
+                }
+            });
+        });
+
+    </script>!-->
+
+</head>
+<body ng-controller="aprendizagemListCtrl">
+    <div class="container"><br>
+        <div class="alert alert-success" role="alert" id="sucesso">
+            <p><big><b>Obrigado por se cadastrar na disciplina!</b></big></p>
+        </div>
+        <img class="center-block" src="http://i.stack.imgur.com/hqIXH.png"><br>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Temas a aprender: <mark>{{ qtdAprender }}</mark></h3>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="item in aprender" track by $index
+                            ng-click="removeTema(item)">{{ item.tema }}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Temas aprendidos: <mark>{{ qtdAprendidos }}</mark></h3>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="item in aprendidos track by $index"
+                            ng-click="removeTema(item)">{{ item.tema }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row panel panel-default panel-body">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <label>Adicionar tema:</label>
+                    <input type="text" class="form-control" id="temaTxt" ng-model="newTema">
+                </div>
+
+                <div class="col-md-3">
+                    <form id="temaForm">
+                        <label>Selecione a coluna:</label>
+                        <div class="radio">
+                            <label><input type="radio" ng-model="coluna" name="coluna" value="aprender" checked> Tema a
+                                aprender</label><br>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" ng-model="coluna" name="coluna" value="aprendido">Tema
+                                aprendido</label>
+                        </div>
+                        <div class="btn btn-primary" ng-click="addTema()">Adicionar</div>
+                    </form>
+                </div>
+
+                <div class="col-md-3">
+                    <form id="functionForm">
+                        <label>Ação ao clicar no tema:</label>
+                        <div class="radio">
+                            <label><input type="radio" ng-model="action" name="action" value="change" checked>
+                                Mudar de coluna</label><br>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" ng-model="action" name="action" value="remove">Remover</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <br><a href="index.html">Voltar à página inicial</a>
+
+    </div>
+</body>
+</html>
