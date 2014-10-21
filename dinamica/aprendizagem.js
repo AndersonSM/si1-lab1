@@ -16,21 +16,25 @@ aprendizagem.controller('aprendizagemListCtrl', function ($scope) {
     //adiciona um tema, depende do valor da var coluna.
     $scope.addTema = function(){
         //se coluna for "a aprender", add o tema na lista determinada
-        if($scope.coluna == "aprender"){
-            //se o tamanho da lista for 1 e o tema for "Nenhum add", eu excluo ele
-            if($scope.aprender.length==1 && $scope.aprender[0].tema == $scope.aprenderNenhum.tema){
-                $scope.aprender.pop();
+        if($scope.newTema !== "" && $scope.newTema != undefined) {
+            if ($scope.coluna == "aprender") {
+                //se o tamanho da lista for 1 e o tema for "Nenhum add", eu excluo ele
+                if ($scope.aprender.length == 1 && $scope.aprender[0].tema == $scope.aprenderNenhum.tema) {
+                    $scope.aprender.pop();
+                }
+                $scope.aprender.push({col: "aprender", tema: $scope.newTema});
+                $scope.qtdAprender++;
+                //se coluna for "tema aprendido", add o tema na lista determinada
+            } else {
+                //se o tamanho da lista for 1 e o tema for "Nenhum add", eu excluo ele
+                if ($scope.aprendidos.length == 1 && $scope.aprendidos[0].tema == $scope.aprendidosNenhum.tema) {
+                    $scope.aprendidos.pop();
+                }
+                $scope.aprendidos.push({col: "aprendidos", tema: $scope.newTema});
+                $scope.qtdAprendidos++;
             }
-            $scope.aprender.push({col:"aprender", tema:$scope.newTema});
-            $scope.qtdAprender++;
-        //se coluna for "tema aprendido", add o tema na lista determinada
         } else {
-            //se o tamanho da lista for 1 e o tema for "Nenhum add", eu excluo ele
-            if($scope.aprendidos.length==1 && $scope.aprendidos[0].tema == $scope.aprendidosNenhum.tema){
-                $scope.aprendidos.pop();
-            }
-            $scope.aprendidos.push({col:"aprendidos", tema:$scope.newTema});
-            $scope.qtdAprendidos++;
+            alert("Digite um tema válido.");
         }
     };
 
