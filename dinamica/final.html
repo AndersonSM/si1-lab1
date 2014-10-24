@@ -38,14 +38,14 @@
                             <div class="col-md-5">
                                 <span class="text-warning" id="removerAprender" ng-click="removerAprender()">Remover
                                     todos</span>
-                                <span class=""> | </span>
+                                <span> | </span>
                                 <span class="text-warning" id="showHide1">Exibir / Ocultar</span>
                             </div>
                         </div>
                     </div>
                     <ul class="list-group" id="aprenderList">
-                        <li class="list-group-item" ng-repeat="item in aprender track by $index"
-                            ng-click="mudaTema(item)">{{ item.tema }}
+                        <li class="list-group-item" ng-repeat="item in aprender track by $index">
+                            <span ng-click="mudaTema(item)">{{ item.tema }}</span>
                             <button type="button" class="close" ng-click="removeTema(item)">
                                 <span aria-hidden="true">&times;</span>
                                 <span class="sr-only">Close</span>
@@ -66,16 +66,16 @@
                             <div class="col-md-5">
                                 <span class="text-warning" id="removerAprendidos"
                                       ng-click="removerAprendidos()">Remover todos</span>
-                                <span class=""> | </span>
+                                <span> | </span>
                                 <span class="text-warning" id="showHide2">Exibir / Ocultar</span>
                             </div>
                         </div>
                     </div>
                     <ul class="list-group" id="aprendidosList">
-                        <li class="list-group-item" ng-repeat="item in aprendidos track by $index"
-                            ng-click="mudaTema(item)">{{ item.tema }}
+                        <li class="list-group-item" ng-repeat="item in aprendidos track by $index">
+                            <span ng-click="mudaTema(item)">{{ item.tema }}</span>
                             <button type="button" class="close" ng-click="removeTema(item)">
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true" >&times;</span>
                                 <span class="sr-only">Close</span>
                             </button>
                         </li>
