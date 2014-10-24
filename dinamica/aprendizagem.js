@@ -4,42 +4,60 @@
 
 var aprendizagem = angular.module('aprendizagem', []);
 var confirmation;
+var CONFIRMATION = "Deseja realmente remover todos os temas desta lista?";
+var NENHUM_TEMA = "Nenhum tema adicionado.";
+var aprendidosNenhum = {col: "aprendidos", tema: "Nenhum tema adicionado."};
+var aprenderNenhum = {col: "aprender", tema: "Nenhum tema adicionado."};
 
 aprendizagem.controller('aprendizagemListCtrl', function ($scope) {
     //listas das colunas
-    $scope.aprendidos = [{col: "aprendidos", tema: "Nenhum tema adicionado."}];
-    $scope.aprender = [{col: "aprender", tema: "Nenhum tema adicionado."}];
-    //default vars pra nenhum tema adicionado
-    $scope.aprendidosNenhum = {col: "aprendidos", tema: "Nenhum tema adicionado."};
-    $scope.aprenderNenhum = {col: "aprender", tema: "Nenhum tema adicionado."};
+    $scope.aprendidos = [];
+    $scope.aprendidos.push(aprendidosNenhum);
+
+    $scope.aprender = [];
+    $scope.aprender.push(aprenderNenhum);
+
     //quantidade de temas adicionados em cada coluna
     $scope.qtdAprendidos = 0;
     $scope.qtdAprender = 0;
+
     //valor do radio button para selecionar a coluna
     $scope.coluna = "aprender";
 
+    //verifica se determinada lista está vazia
+    $scope.isEmpty = function(lista){
+        if(lista == "aprender"){
+            if($scope.aprender.length == 1 && $scope.aprender[0].tema == aprenderNenhum.tema){
+                return true;
+            }
+        } else {
+            if($scope.aprendidos.length == 1 && $scope.aprendidos[0].tema == aprendidosNenhum.tema){
+                return true;
+            }
+        }
+        return false;
+    }
+
     //remove todos os itens da lista A aprender
     $scope.removerAprender = function(){
-        if($scope.aprender.length == 1 && $scope.aprender[0].tema == $scope.aprenderNenhum.tema){
-            alert("Não há nenhum tema adicionado nesta lista.")
+        if($scope.isEmpty("aprender")){
+            alert(NENHUM_TEMA);
         } else {
-            confirmation = confirm("Deseja realmente remover todos os temas desta lista?");
+            confirmation = confirm(CONFIRMATION);
             if (confirmation) {
-                $scope.aprender = [{col: "aprender", tema: "Nenhum tema adicionado."}];
-                $scope.qtdAprender = 0;
+                $scope.zerarLista("aprender");
             }
         }
     };
 
     //remove todos os itens da lista Aprendidos
     $scope.removerAprendidos = function(){
-        if($scope.aprendidos.length == 1 && $scope.aprendidos[0].tema == $scope.aprendidosNenhum.tema) {
-            alert("Não há nenhum tema adicionado nesta lista.")
+        if($scope.isEmpty("aprendidos")){
+            alert(NENHUM_TEMA);
         } else {
-            confirmation = confirm("Deseja realmente remover todos os temas desta lista?");
+            confirmation = confirm(CONFIRMATION);
             if (confirmation) {
-                $scope.aprendidos = [{col: "aprendidos", tema: "Nenhum tema adicionado."}];
-                $scope.qtdAprendidos = 0;
+                $scope.zerarLista("aprendidos");
             }
         }
     };
@@ -50,7 +68,7 @@ aprendizagem.controller('aprendizagemListCtrl', function ($scope) {
         if($scope.newTema !== "" && $scope.newTema != undefined) {
             if ($scope.coluna == "aprender") {
                 //se o tamanho da lista for 1 e o tema for "Nenhum add", eu excluo ele
-                if ($scope.aprender.length == 1 && $scope.aprender[0].tema == $scope.aprenderNenhum.tema) {
+                if($scope.isEmpty("aprender")){
                     $scope.aprender.pop();
                 }
                 $scope.aprender.push({col: "aprender", tema: $scope.newTema});
@@ -58,7 +76,7 @@ aprendizagem.controller('aprendizagemListCtrl', function ($scope) {
                 //se coluna for "tema aprendido", add o tema na lista determinada
             } else {
                 //se o tamanho da lista for 1 e o tema for "Nenhum add", eu excluo ele
-                if ($scope.aprendidos.length == 1 && $scope.aprendidos[0].tema == $scope.aprendidosNenhum.tema) {
+                if($scope.isEmpty("aprendidos")){
                     $scope.aprendidos.pop();
                 }
                 $scope.aprendidos.push({col: "aprendidos", tema: $scope.newTema});
@@ -71,61 +89,73 @@ aprendizagem.controller('aprendizagemListCtrl', function ($scope) {
     };
 
     //remove ou troca o tema de coluna
-    $scope.removeTema = function(item){
-        //se o tema selecionado for 'nulo', alerta
-        if($scope.action == undefined) {
-            alert("Você deve selecionar uma ação");
+    $scope.mudaTema = function(item){
         //se o tema selecionado for "Nenhum add", alerta
-        } else if(item.tema == $scope.aprenderNenhum.tema || item.tema == $scope.aprendidosNenhum.tema) {
-            alert("Nenhum tema foi adicionado.");
-
+        if(item.tema == aprenderNenhum.tema || item.tema == aprendidosNenhum.tema) {
+            alert(NENHUM_TEMA);
         // TROCA DE COLUNA
         } else {
-            if($scope.action == "change"){
-                if(item.col=="aprendidos"){
-                    if($scope.aprender.length==1 && $scope.aprender[0].tema == $scope.aprenderNenhum.tema){
-                        $scope.aprender.pop();
-                    }
-                    item.col = "aprender";
-                    $scope.aprender.push(item);
-                    $scope.aprendidos.splice($scope.aprendidos.indexOf(item),1);
-                    $scope.qtdAprendidos--;
-                    $scope.qtdAprender++;
-                    if($scope.aprendidos.length==0){
-                        $scope.aprendidos.push($scope.aprendidosNenhum);
-                    }
-
-                } else {
-                    if($scope.aprendidos.length==1 && $scope.aprendidos[0].tema == $scope.aprendidosNenhum.tema){
-                        $scope.aprendidos.pop();
-                    }
-                    item.col = "aprendidos";
-                    $scope.aprendidos.push(item);
-                    $scope.aprender.splice($scope.aprender.indexOf(item),1);
-                    $scope.qtdAprender--;
-                    $scope.qtdAprendidos++;
-                    if($scope.aprender.length==0){
-                        $scope.aprender.push($scope.aprenderNenhum);
-                    }
+            if(item.col=="aprendidos"){
+                if($scope.isEmpty("aprender")){
+                    $scope.aprender.pop();
+                }
+                item.col = "aprender";
+                $scope.aprender.push(item);
+                $scope.aprendidos.splice($scope.aprendidos.indexOf(item),1);
+                $scope.qtdAprendidos--;
+                $scope.qtdAprender++;
+                if($scope.aprendidos.length==0){
+                    $scope.aprendidos.push(aprendidosNenhum);
                 }
 
-            // REMOVE
             } else {
-                if(item.col=="aprendidos"){
-                    $scope.aprendidos.splice($scope.aprendidos.indexOf(item),1);
+                if($scope.isEmpty("aprendidos")){
+                    $scope.aprendidos.pop();
+                }
+                item.col = "aprendidos";
+                $scope.aprendidos.push(item);
+                $scope.aprender.splice($scope.aprender.indexOf(item),1);
+                $scope.qtdAprender--;
+                $scope.qtdAprendidos++;
+                if($scope.aprender.length==0){
+                    $scope.aprender.push(aprenderNenhum);
+                }
+            }
+        }
+
+        $scope.removeTema = function(item){
+            if(item.tema == aprenderNenhum.tema || item.tema == aprendidosNenhum.tema) {
+                alert(NENHUM_TEMA);
+            } else {
+                if (item.col == "aprendidos") {
+                    $scope.aprendidos.splice($scope.aprendidos.indexOf(item), 1);
                     $scope.qtdAprendidos--;
-                    if($scope.aprendidos.length==0){
-                        $scope.aprendidos.push($scope.aprendidosNenhum);
+                    if ($scope.aprendidos.length == 0) {
+                        $scope.aprendidos.push(aprendidosNenhum);
                     }
                 } else {
-                    $scope.aprender.splice($scope.aprender.indexOf(item),1);
+                    $scope.aprender.splice($scope.aprender.indexOf(item), 1);
                     $scope.qtdAprender--;
-                    if($scope.aprender.length==0){
-                        $scope.aprender.push($scope.aprenderNenhum);
+                    if ($scope.aprender.length == 0) {
+                        $scope.aprender.push(aprenderNenhum);
                     }
                 }
             }
         }
+
+
+        $scope.zerarLista = function(lista){
+            if(lista == "aprender"){
+                $scope.aprender = [];
+                $scope.aprender.push(aprenderNenhum);
+                $scope.qtdAprender = 0;
+            } else {
+                $scope.aprendidos = [];
+                $scope.aprendidos.push(aprendidosNenhum);
+                $scope.qtdAprendidos = 0;
+            }
+        }
+
       /* ARRAYS CONSOLE LOG
        *
         for(i=0; i < $scope.aprender.length; i++) {

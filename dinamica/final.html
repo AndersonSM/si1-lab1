@@ -13,11 +13,19 @@
 <body ng-controller="aprendizagemListCtrl">
     <div class="container"><br>
         <div class="alert alert-success" role="alert" id="successPanel">
-            <button type="button" class="close"><span aria-hidden="true">&times;</span>
+            <button type="button" class="close" id="close1"><span aria-hidden="true">&times;</span>
             <span class="sr-only">Close</span></button>
             <p><big><b>Obrigado por se cadastrar na disciplina!</b></big></p>
         </div>
+
         <img class="center-block" src="http://i.stack.imgur.com/hqIXH.png"><br>
+
+        <div class="alert alert-warning" role="alert" id="warningPanel">
+            <button type="button" class="close" id="close2"><span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span></button>
+            <p>Clique em cima do tema para mudá-lo de coluna.</p>
+        </div>
+
         <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-default">
@@ -36,8 +44,13 @@
                         </div>
                     </div>
                     <ul class="list-group" id="aprenderList">
-                        <li class="list-group-item" ng-repeat="item in aprender" track by $index
-                            ng-click="removeTema(item)">{{ item.tema }}</li>
+                        <li class="list-group-item" ng-repeat="item in aprender track by $index"
+                            ng-click="mudaTema(item)">{{ item.tema }}
+                            <button type="button" class="close" ng-click="removeTema(item)">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -47,7 +60,7 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-md-7">
-                                <h3 class="panel-title">Temas a aprender:
+                                <h3 class="panel-title">Temas aprendidos:
                                     <span class="text-primary">{{ qtdAprendidos }}</span></h3>
                             </div>
                             <div class="col-md-5">
@@ -60,7 +73,12 @@
                     </div>
                     <ul class="list-group" id="aprendidosList">
                         <li class="list-group-item" ng-repeat="item in aprendidos track by $index"
-                            ng-click="removeTema(item)">{{ item.tema }}</li>
+                            ng-click="mudaTema(item)">{{ item.tema }}
+                            <button type="button" class="close" ng-click="removeTema(item)">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -84,19 +102,6 @@
                                 aprendido</label>
                         </div>
                         <div class="btn btn-primary" id="adicionar" ng-click="addTema()">Adicionar</div>
-                    </form>
-                </div>
-
-                <div class="col-md-3">
-                    <form id="functionForm">
-                        <label>Ação ao clicar no tema:</label>
-                        <div class="radio">
-                            <label><input type="radio" ng-model="action" name="action" value="change" checked>
-                                Mudar de coluna</label><br>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" ng-model="action" name="action" value="remove">Remover</label>
-                        </div>
                     </form>
                 </div>
             </div>

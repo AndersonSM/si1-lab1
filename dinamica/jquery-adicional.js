@@ -7,8 +7,12 @@ $(document).ready(function(){
         $("#temaTxt").val("");
     });
 
-    $(".close").click(function(){
+    $("#close1").click(function(){
         $("#successPanel").fadeOut("slow");
+    });
+
+    $("#close2").click(function(){
+        $("#warningPanel").fadeOut("slow");
     });
 
     $("#showHide1").click(function(){
