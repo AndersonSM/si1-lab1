@@ -1,4 +1,9 @@
+/**
+ * Created by Anderson Sales on 20/10/2014.
+ */
+
 var aprendizagem = angular.module('aprendizagem', []);
+var confirmation;
 
 aprendizagem.controller('aprendizagemListCtrl', function ($scope) {
     //listas das colunas
@@ -12,6 +17,32 @@ aprendizagem.controller('aprendizagemListCtrl', function ($scope) {
     $scope.qtdAprender = 0;
     //valor do radio button para selecionar a coluna
     $scope.coluna = "aprender";
+
+    //remove todos os itens da lista A aprender
+    $scope.removerAprender = function(){
+        if($scope.aprender.length == 1 && $scope.aprender[0].tema == $scope.aprenderNenhum.tema){
+            alert("Não há nenhum tema adicionado nesta lista.")
+        } else {
+            confirmation = confirm("Deseja realmente remover todos os temas desta lista?");
+            if (confirmation) {
+                $scope.aprender = [{col: "aprender", tema: "Nenhum tema adicionado."}];
+                $scope.qtdAprender = 0;
+            }
+        }
+    };
+
+    //remove todos os itens da lista Aprendidos
+    $scope.removerAprendidos = function(){
+        if($scope.aprendidos.length == 1 && $scope.aprendidos[0].tema == $scope.aprendidosNenhum.tema) {
+            alert("Não há nenhum tema adicionado nesta lista.")
+        } else {
+            confirmation = confirm("Deseja realmente remover todos os temas desta lista?");
+            if (confirmation) {
+                $scope.aprendidos = [{col: "aprendidos", tema: "Nenhum tema adicionado."}];
+                $scope.qtdAprendidos = 0;
+            }
+        }
+    };
 
     //adiciona um tema, depende do valor da var coluna.
     $scope.addTema = function(){
@@ -33,6 +64,7 @@ aprendizagem.controller('aprendizagemListCtrl', function ($scope) {
                 $scope.aprendidos.push({col: "aprendidos", tema: $scope.newTema});
                 $scope.qtdAprendidos++;
             }
+            $scope.newTema = "";
         } else {
             alert("Digite um tema válido.");
         }

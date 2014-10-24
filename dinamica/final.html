@@ -2,34 +2,18 @@
 <html xmlns="http://www.w3.org/1999/html" ng-app="aprendizagem">
 <head lang="pt">
     <meta charset="UTF-8">
-    <!-- <link type="text/css" rel="stylesheet" href="stylesheet.css"/> -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.js"></script>
     <script src="aprendizagem.js"></script>
+    <script src="jquery-adicional.js"></script>
     <title>Sistemas de Informação 1 - Obrigado</title>
-
-    <!--<script>
-
-
-        $(document).ready(function(){
-            $("#add").click(function(){
-                if($('input[name=coluna]:checked', '#temaForm').val() === 'aprendido') {
-                    $scope.aprendidos.push($('#temaTxt').val());
-                } else {
-                    $scope.aprender.push($('#temaTxt').val());
-                }
-            });
-        });
-
-    </script>!-->
-
 </head>
 <body ng-controller="aprendizagemListCtrl">
     <div class="container"><br>
-        <div class="alert alert-success alert-dismissible" role="alert" id="sucesso">
-            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+        <div class="alert alert-success" role="alert" id="successPanel">
+            <button type="button" class="close"><span aria-hidden="true">&times;</span>
             <span class="sr-only">Close</span></button>
             <p><big><b>Obrigado por se cadastrar na disciplina!</b></big></p>
         </div>
@@ -38,9 +22,20 @@
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Temas a aprender: <mark>{{ qtdAprender }}</mark></h3>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h3 class="panel-title">Temas a aprender:
+                                <span class="text-primary">{{ qtdAprender }}</span></h3>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="text-warning" id="removerAprender" ng-click="removerAprender()">Remover
+                                    todos</span>
+                                <span class=""> | </span>
+                                <span class="text-warning" id="showHide1">Exibir / Ocultar</span>
+                            </div>
+                        </div>
                     </div>
-                    <ul class="list-group">
+                    <ul class="list-group" id="aprenderList">
                         <li class="list-group-item" ng-repeat="item in aprender" track by $index
                             ng-click="removeTema(item)">{{ item.tema }}</li>
                     </ul>
@@ -50,9 +45,20 @@
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Temas aprendidos: <mark>{{ qtdAprendidos }}</mark></h3>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h3 class="panel-title">Temas a aprender:
+                                    <span class="text-primary">{{ qtdAprendidos }}</span></h3>
+                            </div>
+                            <div class="col-md-5">
+                                <span class="text-warning" id="removerAprendidos"
+                                      ng-click="removerAprendidos()">Remover todos</span>
+                                <span class=""> | </span>
+                                <span class="text-warning" id="showHide2">Exibir / Ocultar</span>
+                            </div>
+                        </div>
                     </div>
-                    <ul class="list-group">
+                    <ul class="list-group" id="aprendidosList">
                         <li class="list-group-item" ng-repeat="item in aprendidos track by $index"
                             ng-click="removeTema(item)">{{ item.tema }}</li>
                     </ul>
@@ -77,7 +83,7 @@
                             <label><input type="radio" ng-model="coluna" name="coluna" value="aprendido">Tema
                                 aprendido</label>
                         </div>
-                        <div class="btn btn-primary" ng-click="addTema()">Adicionar</div>
+                        <div class="btn btn-primary" id="adicionar" ng-click="addTema()">Adicionar</div>
                     </form>
                 </div>
 
